@@ -1,0 +1,36 @@
+---
+title: "class_11_12_18"
+author: "Max Weiss"
+date: "11/12/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+```
+
+```{r}
+
+build_file <- function(district, wave) {
+  district <- tolower(district)
+  stopifnot(is.character(district))
+  poll_table <- paste("https://raw.githubusercontent.com/TheUpshot/2018-live-poll-results/master/data/elections-poll-", district, "-", wave, ".csv", sep = "")
+  upshot_zip <- download.file(url = poll_table,
+                              destfile = "poll.csv",
+                              quiet = TRUE,
+                              mode = "wb")
+  table <- read_csv("poll.csv")
+}
+
+district <- str_to_lower("ca49")
+
+table_1 <- build_file("ca49", "3")
+
+table
+
+
+
+```
+
